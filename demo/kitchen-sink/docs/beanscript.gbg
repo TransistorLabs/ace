@@ -1,0 +1,51 @@
+/* Sample Glow Bean Glow Scripting Language reference program. */
+
+// Global definitions
+#define ALL_ON  [0,1,2,3,4,5 ,6,7,8,9,10,11]
+#define ALL_OFF []
+
+
+loop {
+
+    @start
+    set (
+        color: #eeff99,
+        duration: 1000,
+        ledsOn: [0,1,11]
+    );
+
+    @clockwiseShift
+    increment (
+        addRed: -3,
+        addGreen: -2,
+        addBlue: -1, 
+
+        incrementColorDelay: 10,
+        incrementColorCount: 10,
+
+        rotationDirection: CLOCKWISE,
+        rotationDelay: 10,
+        rotationCount: 12
+    );
+
+    onUserButtonPress(clockwiseShift);
+    
+    loop {
+
+        ifTemp (
+            between: 71,
+            and: 80,
+            goto: clockwiseShift
+        ); 
+
+        
+        @red
+        set (
+            color: #ff0000,
+            duration: 1000,
+            ledsOn:ALL_ON
+        );
+
+        goto(clockwiseShift);
+    }
+}
